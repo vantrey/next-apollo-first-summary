@@ -370,6 +370,16 @@ export type ResultErrorMessage = {
 
 export type ResultUnion = InstagramErrorResponse | InstagramSuccessResponse;
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  commentAdded: InstagramPostComment;
+};
+
+
+export type SubscriptionCommentAddedArgs = {
+  postId: Scalars['String'];
+};
+
 export type UpdateInstagramPostData = {
   description: Scalars['String'];
 };

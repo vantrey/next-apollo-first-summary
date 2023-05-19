@@ -1,21 +1,22 @@
 import React, { FC } from 'react';
 import {  useQuery } from '@apollo/client';
-import Loading from '../../components/Atoms/Loading';
-import ErrorMessage from '../../components/Atoms/ErrorMessage';
-import Posts from '../../components/Posts/Posts';
+import Loading from '../../../components/Atoms/Loading';
+import ErrorMessage from '../../../components/Atoms/ErrorMessage';
+import Posts from '../../../components/Posts/Posts';
 import {GET_INSTAGRAM_USER} from '@/queries/users';
 import {useRouter} from 'next/router';
+import {GetUserQuery, GetUserQueryVariables, useGetUserQuery} from '@/queries/users.generated';
 
-const Id = () => {
+const User = () => {
   const router = useRouter();
   const id = router.query.id
     console.log('id',id)
-  const { loading, error, data, refetch } = useQuery(GET_INSTAGRAM_USER,
+  const { loading, error, data, refetch } = useGetUserQuery(
     {
       variables: { id: id as string || '' },
       //pollInterval: 1000,
-      //fetchPolicy: 'cache-and-network'
-      //skip: !id
+      //fetchPolicy: 'cache-and-network',
+      skip: !id
     }
   );
   const user = data?.instagramUser;
@@ -39,9 +40,10 @@ const Id = () => {
         </>
       )}
       <button onClick={onRefetch}>refetch</button>
-      <div style={{ paddingTop: '20px' }}>{<Posts userId={id as string || ''} />}</div>
+      <div style={{ paddingTop: '20px' }}>{
+          <Posts userId={id as string || ''} />}</div>
     </>
   );
 };
 
-export default Id;
+export default User;

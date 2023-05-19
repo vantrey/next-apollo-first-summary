@@ -28,6 +28,7 @@ const CreatePost: FC<ICreatePostProps> = ({ userId }) => {
   const optimisticResponse: CreatePostMutation['createInstagramPost'] = {
     created_at: 0,
     __typename: 'InstagramUserPost',
+    _id: '123',
     profileId: userId,
     description: description || '',
     geo: null
@@ -67,7 +68,7 @@ const CreatePost: FC<ICreatePostProps> = ({ userId }) => {
   });
 
   const client = useApolloClient();
-  console.log('client.cache', client.cache);
+  //console.log('client.cache', client.cache);
 
   //работа с кэшем
   const updCache = () => {
@@ -93,6 +94,7 @@ const CreatePost: FC<ICreatePostProps> = ({ userId }) => {
               geo: { title: '678', lat: 1 },
               description: 'sdf',
               __typename: 'InstagramUserPost',
+              _id: ''
             },
           ],
         },

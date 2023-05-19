@@ -3,6 +3,7 @@ import Loading from '../Atoms/Loading';
 import ErrorMessage from '../Atoms/ErrorMessage';
 import CreatePost from '../CreatePost';
 import {useGetPostsLazyQuery} from '@/queries/posts.generated';
+import Link from 'next/link';
 
 interface IPosts {
   userId: string;
@@ -17,7 +18,7 @@ const Posts: FC<IPosts> = ({ userId }) => {
     await getPosts({ variables: { userId } });
   };
 
-  return (
+    return (
     <>
       <div style={{ paddingBottom: '10px' }}>
         <button onClick={onViewPosts}>view posts</button>
@@ -34,6 +35,7 @@ const Posts: FC<IPosts> = ({ userId }) => {
               </div>
               <div>description: {post.description}</div>
               {post.geo?.title && <div>location: {post.geo.title}</div>}
+              <Link href={`${userId}/${post._id}/comments`}> show comments</Link>
             </div>
           ))}
         </>

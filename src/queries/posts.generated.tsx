@@ -8,7 +8,7 @@ export type GetPostsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', instagramPosts: Array<{ __typename?: 'InstagramUserPost', profileId: string, description: string, created_at: number, geo?: { __typename?: 'PostGeo', lat: number, title: string } | null }> };
+export type GetPostsQuery = { __typename?: 'Query', instagramPosts: Array<{ __typename?: 'InstagramUserPost', profileId: string, _id: string, description: string, created_at: number, geo?: { __typename?: 'PostGeo', lat: number, title: string } | null }> };
 
 export type CreatePostMutationVariables = Types.Exact<{
   userId: Types.Scalars['String'];
@@ -16,13 +16,14 @@ export type CreatePostMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreatePostMutation = { __typename?: 'Mutation', createInstagramPost: { __typename?: 'InstagramUserPost', description: string, profileId: string, created_at: number, geo?: { __typename?: 'PostGeo', title: string, lat: number } | null } };
+export type CreatePostMutation = { __typename?: 'Mutation', createInstagramPost: { __typename?: 'InstagramUserPost', description: string, profileId: string, _id: string, created_at: number, geo?: { __typename?: 'PostGeo', title: string, lat: number } | null } };
 
 
 export const GetPostsDocument = gql`
     query GetPosts($userId: String!) {
   instagramPosts(profileId: $userId) {
     profileId
+    _id
     description
     created_at
     geo {
@@ -65,6 +66,7 @@ export const CreatePostDocument = gql`
   createInstagramPost(profileId: $userId, data: $data) {
     description
     profileId
+    _id
     created_at
     geo {
       title
